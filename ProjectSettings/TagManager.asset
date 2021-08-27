@@ -8,6 +8,7 @@ TagManager:
   - EndPoint1
   - EndPoint2
   - DespawnPoint
+  - SkillBtn
   layers:
   - Default
   - TransparentFX

@@ -27,13 +27,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5982613080274145036}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0.6822184, y: 0.04056783, z: 0.7290345, w: -0.0379627}
   m_LocalPosition: {x: 0, y: 4.35, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 3, y: 3, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 186.37, y: -93.8, z: 0}
 --- !u!212 &5982613080274145027
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -73,7 +73,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: bb61132898fc9a54a94069c3d11b6140, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 5495bf271b3efa343a174ef904cca9eb, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -103,14 +103,15 @@ MonoBehaviour:
   maxTimeBetweenShots: 2
   projectileSpeed: 15
   durationOfExplosion: 1
-  sfxFireVolume: 0.119
-  sfxDeathVolume: 0.383
+  sfxFireVolume: 0.065
+  sfxDeathVolume: 0.2
   laserPrefab: {fileID: 6700739498120857817, guid: de951f72a8fc47b4f8b7c789ee39d8ed,
     type: 3}
-  deathVFX: {fileID: 8931070577617972938, guid: 10943390f03d7204a98f4e5058af6b2b,
+  deathVFX: {fileID: 1677594210014522805, guid: 3ab7a55850ba05e418c2b0881c27c572,
     type: 3}
-  deathSFX: {fileID: 8300000, guid: 56aa9833351d9484b8a1daf975025072, type: 3}
+  deathSFX: {fileID: 8300000, guid: 1e5fd731909ebf7439b1775a98160925, type: 3}
   fireSFX: {fileID: 8300000, guid: 357030f78acad9449a0acf70d3939900, type: 3}
+  shouldMove: 1
 --- !u!61 &8543467664226547255
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -128,7 +129,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1.04, y: 0.84}
+    oldSize: {x: 0.4, y: 0.4}
     newSize: {x: 1.03, y: 0.84}
     adaptiveTilingThreshold: 0.5
     drawMode: 0

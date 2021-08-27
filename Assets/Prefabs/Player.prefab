@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 6287250526983272922}
   - component: {fileID: 6287250526983272921}
   - component: {fileID: 6287250526983272920}
-  - component: {fileID: 7779339338597840974}
   m_Layer: 8
   m_Name: Player
   m_TagString: Untagged
@@ -101,6 +100,7 @@ MonoBehaviour:
   projectileFiringPeriod: 0.1
   health: 100
   durationOfExplosion: 1
+  shootCoolDown: 0.5
   sfxFireVolume: 0.193
   sfxDeathVolume: 1
   deathVFX: {fileID: 8931070577617972938, guid: 10943390f03d7204a98f4e5058af6b2b,
@@ -109,48 +109,4 @@ MonoBehaviour:
     type: 3}
   deathSFX: {fileID: 8300000, guid: 56aa9833351d9484b8a1daf975025072, type: 3}
   shootSFX: {fileID: 8300000, guid: fc8306c2cc8fb8947bd9acd7847ff8a0, type: 3}
---- !u!60 &7779339338597840974
-PolygonCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6287250526983272935}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1.12, y: 0.75}
-    newSize: {x: 1.12, y: 0.75}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  m_Points:
-    m_Paths:
-    - - {x: 0.4142424, y: -0.2613945}
-      - {x: 0.51011527, y: -0.097268105}
-      - {x: 0.5237199, y: -0.049013138}
-      - {x: 0.49773228, y: -0.023547173}
-      - {x: 0.37092996, y: 0.025522709}
-      - {x: 0.110930085, y: 0.17511511}
-      - {x: 0.04104495, y: 0.32552242}
-      - {x: 0.035057425, y: 0.375}
-      - {x: -0.044650078, y: 0.36366224}
-      - {x: -0.11383486, y: 0.16087246}
-      - {x: -0.5033126, y: -0.033141136}
-      - {x: -0.5169176, y: -0.09645271}
-      - {x: -0.44249737, y: -0.16005802}
-      - {x: -0.33877742, y: -0.3024397}
-      - {x: -0.16598737, y: -0.29284763}
-      - {x: -0.11598754, y: -0.36819744}
-      - {x: 0.10145247, y: -0.37046528}
-      - {x: 0.20360494, y: -0.27057934}
-      - {x: 0.30639505, y: -0.31645203}
-      - {x: 0.37866247, y: -0.3332548}
+  joystick: {fileID: 0}

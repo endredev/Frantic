@@ -1,21 +1,26 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class GameSession : MonoBehaviour
 {
-    [SerializeField] GameObject[] skillButtons = null;
+    [SerializeField] GameObject[] placeForSkills = null;
+    [SerializeField] GameObject[] skills = null;
+    [SerializeField] Canvas skillCanvas = null;
+
+    public static GameSession Instance;
 
     int score = 0;
     int currentScore = 0;
-    int scoreGap = 1000;
+    int scoreGap = 3500;
     float slowDownFactor = 0.05f;
-    float speedUpTime = 2f;
-    bool timeSlowed = true;
- 
+    float slowDownLength = 1f;
+
+    Boolean slowDownTime = false;
+    Boolean speedUpTime = false;
+
     private void Awake()
-    {    
+    {
+        Instance = this;
         SetUpSingleton();
     }
 
@@ -33,9 +38,26 @@ public class GameSession : MonoBehaviour
 
     private void Update()
     {
-        if (!timeSlowed && Time.timeScale <= 1)
+        if (slowDownTime)
         {
-            Time.timeScale += (1f / speedUpTime) * Time.unscaledDeltaTime;
+            float amount = (1 / slowDownLength) * Time.unscaledDeltaTime;
+            if (Time.timeScale - amount >= 0)
+            {
+                Time.timeScale -= (1 / slowDownLength) * Time.unscaledDeltaTime;
+                Time.fixedDeltaTime = Time.timeScale * .2f;
+            } else {
+                Time.timeScale = 0;
+                slowDownTime = false;
+            }
+        } else if (speedUpTime) {
+            if (Time.timeScale > 1) {
+                Time.timeScale = 1;
+                Time.fixedDeltaTime = Time.timeScale * .2f;
+                this.speedUpTime = false;
+            } else {
+                Time.timeScale += (1 / slowDownLength) * Time.unscaledDeltaTime;
+                Time.fixedDeltaTime = Time.timeScale * .2f;
+            }
         }
     }
 
@@ -67,34 +89,28 @@ public class GameSession : MonoBehaviour
 
     public void SlowTimeForSkillSelection()
     {
-        foreach (GameObject button in skillButtons)
-        {
-            button.SetActive(true);
-        }
-        Time.timeScale = slowDownFactor;
-        Time.fixedDeltaTime = Time.timeScale * .2f;
-        timeSlowed = true;
+        slowDownTime = true;
+        ShowSkills();
     }
 
-    public void SkillSelected(string type)
+    private void ShowSkills()
     {
-        HandleSkillSelection(type);
-        timeSlowed = false;
-        foreach (GameObject button in skillButtons)
+        foreach (GameObject objForPosition in placeForSkills)
         {
-            button.SetActive(false);
-            scoreGap = currentScore + 1000;
+            Vector3 position = objForPosition.transform.position;
+            GameObject skill = Instantiate(skills[0], position, Quaternion.identity);
+            skill.transform.SetParent(skillCanvas.transform);
         }
     }
 
-    private void HandleSkillSelection(string type)
+    public static void HandleSkillSelection(Abilty.AbilityType type)
     {
         switch (type)
         {
-            case "health":
+            case Abilty.AbilityType.Health:
                 FindObjectOfType<Player>().IncreaseHealth(100);
                 break;
-            case "explosion":
+            case Abilty.AbilityType.Explosion:
                 GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
                 foreach (GameObject enemy in enemies)
                 {
@@ -105,5 +121,12 @@ public class GameSession : MonoBehaviour
                 Console.WriteLine("Default case");
                 break;
         }
+
+        GameObject[] buttons = GameObject.FindGameObjectsWithTag("SkillBtn");
+        foreach (GameObject button in buttons)
+        {
+            Destroy(button);
+        }
+        GameSession.Instance.speedUpTime = true;
     }
 }

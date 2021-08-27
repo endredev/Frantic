@@ -45,7 +45,6 @@ public class Player : MonoBehaviour
     void Update()
     {
         Move();
-        Fire();
     }
 
     public void ManualFire()
@@ -57,31 +56,6 @@ public class Player : MonoBehaviour
             GameObject laser = Instantiate(laserPrefab, transform.position, Quaternion.identity) as GameObject;
             laser.GetComponent<Rigidbody2D>().velocity = new Vector2(0, projectileSpeed);
             StartCoroutine(fireCoolDown());
-        }
-    }
-
-    private void Fire()
-    {
-         if(Input.GetButtonDown("Fire1"))
-        {
-            canShoot = false;
-            StartCoroutine(fireCoolDown());
-            firingCorutine = StartCoroutine(fireContinously());
-        }
-        if (Input.GetButtonUp("Fire1"))
-        {
-            StopCoroutine(firingCorutine);
-        }
-    }
-
-    IEnumerator fireContinously()
-    {
-        while (true && canShoot)
-        {
-            AudioSource.PlayClipAtPoint(shootSFX, Camera.main.transform.position, sfxFireVolume);
-            GameObject laser = Instantiate(laserPrefab, transform.position, Quaternion.identity) as GameObject;
-            laser.GetComponent<Rigidbody2D>().velocity = new Vector2(0, projectileSpeed);
-            yield return new WaitForSeconds(projectileFiringPeriod);
         }
     }
 
@@ -133,6 +107,7 @@ public class Player : MonoBehaviour
     {
         health -= damageDealer.GetDamage();
         damageDealer.Hit();
+ 
         if (health <= 0)
         {
             Die();

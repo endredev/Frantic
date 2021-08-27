@@ -20,11 +20,15 @@ public class Enemy : MonoBehaviour
     [SerializeField] GameObject deathVFX = null;
     [SerializeField] AudioClip deathSFX = null;
     [SerializeField] AudioClip fireSFX = null;
+    [SerializeField] Boolean shouldMove = true;
 
     // Start is called before the first frame update
     void Start()
     {
-        StartMoving();
+        if (shouldMove)
+        {
+            StartMoving();
+        }
         shotCounter = UnityEngine.Random.Range(minTimeBetweenShots, maxTimeBetweenShots);
 
     }
