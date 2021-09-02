@@ -5,12 +5,11 @@ using UnityEngine;
 public class BackGroundScroller : MonoBehaviour
 {
 
-    [SerializeField] float backGroundScrollSpeed = 0.02f;
+    [SerializeField] float backGroundScrollSpeed = 10f;
     [SerializeField] float planetSpawnMinTime;
-    [SerializeField] Material warpMaterial;
-    [SerializeField] GameObject planet;
-    [SerializeField] GameObject spawnPointStart;
-    [SerializeField] GameObject spawnPointEnd;
+    [SerializeField] GameObject planet = null;
+    [SerializeField] GameObject spawnPointStart = null;
+    [SerializeField] GameObject spawnPointEnd = null;
 
     Material myMaterial;
     Vector2 offset;
@@ -44,7 +43,7 @@ public class BackGroundScroller : MonoBehaviour
 
         if (planetSpawned)
         {
-            planetInstantiated.transform.position = new Vector3(planetInstantiated.transform.position.x, planetInstantiated.transform.position.y - 0.1f, 0.3f);
+            planetInstantiated.transform.position = new Vector3(planetInstantiated.transform.position.x, planetInstantiated.transform.position.y - 0.01f, 0.3f);
         }
     }
 }

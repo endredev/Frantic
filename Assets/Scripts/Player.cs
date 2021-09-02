@@ -12,9 +12,9 @@ public class Player : MonoBehaviour
     [SerializeField] float padding = 1f;
 
     [Header("Projectile")]
-    [SerializeField] float projectileSpeed = 100f;
-    [SerializeField] float projectileFiringPeriod = 0.2f;
-    [SerializeField] float health = 200;
+    [SerializeField] int health = 100;
+    [SerializeField] int maxHealth = 100;
+    [SerializeField] float projectileSpeed = 100f;    
     [SerializeField] float durationOfExplosion = 1f;
     [SerializeField] float shootCoolDown = .5f;
     [SerializeField] [Range(0, 1)] float sfxFireVolume = 1f;
@@ -23,21 +23,20 @@ public class Player : MonoBehaviour
     [SerializeField] GameObject laserPrefab = null;
     [SerializeField] AudioClip deathSFX = null;
     [SerializeField] AudioClip shootSFX = null;
+    [SerializeField] HealthBar healthBar = null;
 
-    Coroutine firingCorutine;
-
-    float xMin;
-    float yMin;
-    float xMax;
-    float yMax;
+    private float xMin;
+    private float yMin;
+    private float xMax;
+    private float yMax;
+    private Boolean canShoot = true;
 
     public Joystick joystick;
-
-    private Boolean canShoot = true;
 
     // Start is called before the first frame update
     void Start()
     {
+        healthBar.setMaxHealth(health);
         SetupMoveBoundaries();
     }
 
@@ -74,14 +73,25 @@ public class Player : MonoBehaviour
         yMax = gameCamera.ViewportToWorldPoint(new Vector3(0, 0.5f, 0)).y - padding;
     }
 
-    public void SetHealth(float amount)
+    public void SetHealth(int amount)
     {
         health = amount;
     }
 
-    public void IncreaseHealth(float amount)
+    public void IncreaseHealth(int amount)
     {
+        int missingMaxHealth = maxHealth - health;
+        if (amount > missingMaxHealth)
+        {
+            amount = missingMaxHealth;
+        }
         health += amount;
+        healthBar.SetHealth(health);
+    }
+
+    public void IncreaseFireRate(float percentage)
+    {
+        shootCoolDown = shootCoolDown - (shootCoolDown * (percentage / 100));
     }
 
     private void Move()
@@ -106,6 +116,7 @@ public class Player : MonoBehaviour
     private void ProcessHit(DamageDealer damageDealer)
     {
         health -= damageDealer.GetDamage();
+        healthBar.SetHealth(health);
         damageDealer.Hit();
  
         if (health <= 0)

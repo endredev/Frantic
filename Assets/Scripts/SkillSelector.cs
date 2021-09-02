@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class SkillSelector : MonoBehaviour
 {
-    [SerializeField] Abilty.AbilityType type;
+    [SerializeField] Abilty.AbilityType type = Abilty.AbilityType.Default;
 
     void Start()
     {

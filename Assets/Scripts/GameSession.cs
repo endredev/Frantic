@@ -1,5 +1,6 @@
 ﻿using System;
 using UnityEngine;
+using System.Linq;
 
 public class GameSession : MonoBehaviour
 {
@@ -11,12 +12,13 @@ public class GameSession : MonoBehaviour
 
     int score = 0;
     int currentScore = 0;
+    int scoreGapStatic = 3000;
     int scoreGap = 3500;
-    float slowDownFactor = 0.05f;
     float slowDownLength = 1f;
 
     Boolean slowDownTime = false;
     Boolean speedUpTime = false;
+    Boolean skillSelectionUp = false;
 
     private void Awake()
     {
@@ -44,20 +46,13 @@ public class GameSession : MonoBehaviour
             if (Time.timeScale - amount >= 0)
             {
                 Time.timeScale -= (1 / slowDownLength) * Time.unscaledDeltaTime;
-                Time.fixedDeltaTime = Time.timeScale * .2f;
             } else {
                 Time.timeScale = 0;
                 slowDownTime = false;
             }
         } else if (speedUpTime) {
-            if (Time.timeScale > 1) {
                 Time.timeScale = 1;
-                Time.fixedDeltaTime = Time.timeScale * .2f;
-                this.speedUpTime = false;
-            } else {
-                Time.timeScale += (1 / slowDownLength) * Time.unscaledDeltaTime;
-                Time.fixedDeltaTime = Time.timeScale * .2f;
-            }
+            this.speedUpTime = false;
         }
     }
 
@@ -74,11 +69,12 @@ public class GameSession : MonoBehaviour
     public void AddScore(int scoreToAdd)
     {
         score += scoreToAdd;
-        currentScore += scoreToAdd;
 
-        if(currentScore >= scoreGap)
+        if (score >= scoreGap && !skillSelectionUp)
         {
             SlowTimeForSkillSelection();
+            skillSelectionUp = true;
+            scoreGap = score + scoreGapStatic;
         }
     }
 
@@ -95,11 +91,19 @@ public class GameSession : MonoBehaviour
 
     private void ShowSkills()
     {
+        GameObject[] skillsToShow = skills;
+        int selectedSkills = 0;
         foreach (GameObject objForPosition in placeForSkills)
         {
-            Vector3 position = objForPosition.transform.position;
-            GameObject skill = Instantiate(skills[0], position, Quaternion.identity);
-            skill.transform.SetParent(skillCanvas.transform);
+            if (selectedSkills <= 1)
+            {
+                int skillIndex = UnityEngine.Random.Range(0, skillsToShow.Length);
+                Vector3 position = objForPosition.transform.position;
+                GameObject skill = Instantiate(skillsToShow[skillIndex], position, Quaternion.identity);
+                skill.transform.SetParent(skillCanvas.transform);
+                skillsToShow = skillsToShow.Where((source, index) => index != skillIndex).ToArray();
+                selectedSkills++;
+            }
         }
     }
 
@@ -109,6 +113,9 @@ public class GameSession : MonoBehaviour
         {
             case Abilty.AbilityType.Health:
                 FindObjectOfType<Player>().IncreaseHealth(100);
+                break;
+            case Abilty.AbilityType.FireRate:
+                FindObjectOfType<Player>().IncreaseFireRate(25);
                 break;
             case Abilty.AbilityType.Explosion:
                 GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
@@ -127,6 +134,7 @@ public class GameSession : MonoBehaviour
         {
             Destroy(button);
         }
-        GameSession.Instance.speedUpTime = true;
+        GameSession.Instance.speedUpTime = true; 
+        GameSession.Instance.skillSelectionUp = false;
     }
 }
