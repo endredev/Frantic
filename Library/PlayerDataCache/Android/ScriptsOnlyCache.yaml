@@ -2,6 +2,7 @@ ScriptsOnlyBuild:
   usedScripts:
     Assembly-CSharp.dll:
     - BackGroundScroller
+    - CameraShake
     - DamageDealer
     - Enemy
     - EnemyPathing
@@ -12,6 +13,8 @@ ScriptsOnlyBuild:
     - HealthBar
     - HealthDisplay
     - Level
+    - Meteor
+    - MeteorSpawner
     - MusicPlayer
     - Player
     - ScoreDisplay
@@ -142,6 +145,8 @@ ScriptsOnlyBuild:
       Script: {instanceID: 0}
     - Class: 50
       Script: {instanceID: 0}
+    - Class: 58
+      Script: {instanceID: 0}
     - Class: 60
       Script: {instanceID: 0}
     - Class: 61
@@ -200,6 +205,12 @@ ScriptsOnlyBuild:
       Script: {instanceID: 14448}
     - Class: 114
       Script: {instanceID: 14494}
+    - Class: 114
+      Script: {instanceID: 18558}
+    - Class: 114
+      Script: {instanceID: 19158}
+    - Class: 114
+      Script: {instanceID: 54848}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -694,7 +705,7 @@ ScriptsOnlyBuild:
     className: Benchmark01
   - hash:
       serializedVersion: 2
-      Hash: d478dc2b8881f25260ab85e7f96cf31a
+      Hash: 2954157ee3e4b0c48775808b1b6ec0db
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: Player
@@ -928,7 +939,7 @@ ScriptsOnlyBuild:
     className: TMP_TextSelector_A
   - hash:
       serializedVersion: 2
-      Hash: 8a613990cf2bf5e3adde3a8c87dc5d89
+      Hash: 16eb0a5d6e698a6e65150e6fd991fdf8
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: Enemy
@@ -1274,6 +1285,24 @@ ScriptsOnlyBuild:
     assemblyName: Unity.Timeline.dll
     namespaceName: UnityEngine.Timeline
     className: PlayableTrack
+  - hash:
+      serializedVersion: 2
+      Hash: 173dda36a7ede9b6e476f5bf37ae0a2a
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: MeteorSpawner
+  - hash:
+      serializedVersion: 2
+      Hash: 957a96a86a20d7d54841eca6048ceba2
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: Meteor
+  - hash:
+      serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: CameraShake
   platform: 13
   scenePathNames:
   - Assets/Scenes/Start Menu.unity

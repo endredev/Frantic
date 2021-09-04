@@ -23,27 +23,32 @@ public class EnemySpawner : MonoBehaviour
     {
         while (looping)
         {
-            /* Boost mechanic for AI */
-            if (innerScore >= 15)
-            {
-                innerScore = 0;
-                minSpawnTime *= 0.8f;
-                maxSpawnTime *= 0.8f;
-
-                if (minSpawnTime <= 0.6)
-                {
-                    minSpawnTime = staticMinSpawnTime;
-                    maxSpawnTime = staticMaxSpawnTime;
-                    enemyLevel++;
-                }
-            }
+            EnemyBoostMechanicCalculator();
 
             float toSpawn = Random.Range(minSpawnTime, maxSpawnTime);
             yield return new WaitForSeconds(toSpawn);
-            innerScore++;
             randomSpawnSpot = Random.Range(0, spawnSpots.Length);
             int indexToPick = Random.Range(0, enemyLevel);
             Instantiate(enemies[indexToPick], spawnSpots[randomSpawnSpot].position, Quaternion.identity);
+            innerScore++;
+        }
+    }
+
+    private void EnemyBoostMechanicCalculator()
+    {
+        /* Boost mechanic for AI */
+        if (innerScore >= 15)
+        {
+            innerScore = 0;
+            minSpawnTime *= 0.4f;
+            maxSpawnTime *= 0.2f;
+
+            if (minSpawnTime <= 0.6)
+            {
+                minSpawnTime = staticMinSpawnTime;
+                maxSpawnTime = staticMaxSpawnTime;
+                enemyLevel++;
+            }
         }
     }
 }

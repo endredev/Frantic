@@ -18,6 +18,7 @@ public class Enemy : MonoBehaviour
 
     [Header("Sound Effects")]
     [SerializeField] GameObject deathVFX = null;
+    [SerializeField] GameObject smokeVFX = null;
     [SerializeField] AudioClip deathSFX = null;
     [SerializeField] AudioClip fireSFX = null;
     [SerializeField] Boolean shouldMove = true;
@@ -105,8 +106,10 @@ public class Enemy : MonoBehaviour
     {
         FindObjectOfType<GameSession>().AddScore(scoreValue);
         Destroy(gameObject);
+        GameObject smoke = Instantiate(smokeVFX, transform.position, transform.rotation);
         GameObject explosion = Instantiate(deathVFX, transform.position, transform.rotation);
         Destroy(explosion, durationOfExplosion);
+        Destroy(smoke, durationOfExplosion);
         AudioSource.PlayClipAtPoint(deathSFX, Camera.main.transform.position, sfxDeathVolume);
     }
 }

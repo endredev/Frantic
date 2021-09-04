@@ -19,9 +19,11 @@ public class Player : MonoBehaviour
     [SerializeField] float shootCoolDown = .5f;
     [SerializeField] [Range(0, 1)] float sfxFireVolume = 1f;
     [SerializeField] [Range(0, 1)] float sfxDeathVolume = 1f;
+    [SerializeField] [Range(0, 10)] float sfxShieldHitVolume = 3f;
     [SerializeField] GameObject deathVFX = null;
     [SerializeField] GameObject laserPrefab = null;
     [SerializeField] AudioClip deathSFX = null;
+    [SerializeField] AudioClip shieldHitSFX = null;
     [SerializeField] AudioClip shootSFX = null;
     [SerializeField] HealthBar healthBar = null;
 
@@ -32,6 +34,7 @@ public class Player : MonoBehaviour
     private Boolean canShoot = true;
 
     public Joystick joystick;
+    public CameraShake cameraShake;
 
     // Start is called before the first frame update
     void Start()
@@ -118,10 +121,14 @@ public class Player : MonoBehaviour
         health -= damageDealer.GetDamage();
         healthBar.SetHealth(health);
         damageDealer.Hit();
- 
+        StartCoroutine(cameraShake.Shake(.2f, .1f));
+
         if (health <= 0)
         {
             Die();
+        } else
+        {
+            AudioSource.PlayClipAtPoint(shieldHitSFX, Camera.main.transform.position, sfxShieldHitVolume);
         }
     }
 
