@@ -11,14 +11,17 @@ public class GameSession : MonoBehaviour
     public static GameSession Instance;
 
     int score = 0;
+    int scoreIncrease = 50;
     int currentScore = 0;
     int scoreGapStatic = 3000;
     int scoreGap = 3500;
+    float lastScoreUpdate = 5;
     float slowDownLength = 1f;
 
     Boolean slowDownTime = false;
     Boolean speedUpTime = false;
     Boolean skillSelectionUp = false;
+    static Boolean gameStarted = false;
 
     private void Awake()
     {
@@ -54,6 +57,23 @@ public class GameSession : MonoBehaviour
                 Time.timeScale = 1;
             this.speedUpTime = false;
         }
+
+        /* Score increase */
+        if (Time.time - lastScoreUpdate >= 5f)
+        {
+            score += scoreIncrease;
+            lastScoreUpdate = Time.time;
+        }
+    }
+
+    public static Boolean GetGameStarted()
+    {
+        return gameStarted;
+    }
+
+    public void StartGame()
+    {
+        gameStarted = true;
     }
 
     public int GetScore()

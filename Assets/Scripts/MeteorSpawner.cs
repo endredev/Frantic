@@ -18,12 +18,15 @@ public class MeteorSpawner : MonoBehaviour
 
     private void FixedUpdate()
     {
-        meteorSpawnMinTime -= Time.deltaTime;
-        if (meteorSpawnMinTime <= 0f)
+        if (GameSession.GetGameStarted())
         {
-            float xToSpawnOn = Random.Range(spawnPointStart.transform.position.x, spawnPointEnd.transform.position.x);
-            Instantiate(meteor, new Vector3(xToSpawnOn, spawnPointStart.transform.position.y, 0), Quaternion.identity);
-            meteorSpawnMinTime = Random.Range(5f, 10f);
+            meteorSpawnMinTime -= Time.deltaTime;
+            if (meteorSpawnMinTime <= 0f)
+            {
+                float xToSpawnOn = Random.Range(spawnPointStart.transform.position.x, spawnPointEnd.transform.position.x);
+                Instantiate(meteor, new Vector3(xToSpawnOn, spawnPointStart.transform.position.y, 0), Quaternion.identity);
+                meteorSpawnMinTime = Random.Range(5f, 10f);
+            }
         }
     }
 }

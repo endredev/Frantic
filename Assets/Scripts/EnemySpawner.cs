@@ -12,11 +12,25 @@ public class EnemySpawner : MonoBehaviour
     private float minSpawnTime = 1f;
     private float staticMaxSpawnTime = 1.5f;
     private float maxSpawnTime = 3f;
+    bool enemiesStartedSpawn = false;
+
     [SerializeField] bool looping = false;
 
-    private IEnumerator Start()
+    private void Update()
     {
-        yield return StartCoroutine(SpawnEnemies());
+        if (!enemiesStartedSpawn)
+        {
+            StartCoroutine(checkForSpawningEnemies());
+        }
+    }
+
+    private IEnumerator checkForSpawningEnemies()
+    {
+        if (GameSession.GetGameStarted())
+        {
+            enemiesStartedSpawn = true;
+            yield return StartCoroutine(SpawnEnemies());
+        }
     }
 
     private IEnumerator SpawnEnemies()
@@ -37,7 +51,7 @@ public class EnemySpawner : MonoBehaviour
     private void EnemyBoostMechanicCalculator()
     {
         /* Boost mechanic for AI */
-        if (innerScore >= 15)
+        if (innerScore >= 35)
         {
             innerScore = 0;
             minSpawnTime *= 0.4f;

@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 4987467994733095240}
   - component: {fileID: 6318975727112483563}
   - component: {fileID: 4581563794128605636}
-  - component: {fileID: 8655588116944440174}
   - component: {fileID: 3216595511822597692}
   m_Layer: 10
   m_Name: Player Laser
@@ -71,10 +70,10 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 1718157809
-  m_SortingLayer: -1
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 4d324cde369595e49b3c7f02b9c37940, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 32f44502e0be04a478bb80961106bfba, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -102,7 +101,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.09, y: 0.57}
+    oldSize: {x: 0.13, y: 0.54}
     newSize: {x: 0.09, y: 0.57}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -124,32 +123,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 50
---- !u!61 &8655588116944440174
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6700739498120857817}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.09, y: 0.57}
-    newSize: {x: 0.09, y: 0.57}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 0.09, y: 0.57}
-  m_EdgeRadius: 0
 --- !u!50 &3216595511822597692
 Rigidbody2D:
   serializedVersion: 4

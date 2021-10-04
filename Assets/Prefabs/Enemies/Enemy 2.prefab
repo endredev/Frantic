@@ -102,13 +102,15 @@ MonoBehaviour:
   shotCounter: 10
   minTimeBetweenShots: 0.2
   maxTimeBetweenShots: 2
-  projectileSpeed: 15
+  projectileSpeed: 8
   durationOfExplosion: 1
   sfxFireVolume: 0.065
   sfxDeathVolume: 0.2
   laserPrefab: {fileID: 8057739383431815154, guid: 7e8b3086a1008524b95e9d467c334d98,
     type: 3}
   deathVFX: {fileID: 1677594210014522805, guid: 3ab7a55850ba05e418c2b0881c27c572,
+    type: 3}
+  smokeVFX: {fileID: 2823203979016526384, guid: 2a921dcfb99dc9f4ba406c1eb33759f3,
     type: 3}
   deathSFX: {fileID: 8300000, guid: 1e5fd731909ebf7439b1775a98160925, type: 3}
   fireSFX: {fileID: 8300000, guid: 357030f78acad9449a0acf70d3939900, type: 3}
@@ -147,7 +149,7 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4045851238224464982}
-  m_BodyType: 0
+  m_BodyType: 1
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0

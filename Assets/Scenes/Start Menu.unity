@@ -544,6 +544,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Music Player
       objectReference: {fileID: 0}
+    - target: {fileID: 1298399432005331872, guid: 2a044e9cd598fa54fa10b46fe8012ecd,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1298399432005331873, guid: 2a044e9cd598fa54fa10b46fe8012ecd,
         type: 3}
       propertyPath: m_Volume
@@ -636,7 +641,7 @@ PrefabInstance:
     - target: {fileID: 6338797719992498002, guid: bc64805dbf5544a43acb75a6d5bd7ec0,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -241
+      value: -208
       objectReference: {fileID: 0}
     - target: {fileID: 6338797720056047265, guid: bc64805dbf5544a43acb75a6d5bd7ec0,
         type: 3}
@@ -776,7 +781,7 @@ PrefabInstance:
     - target: {fileID: 6338797720278950471, guid: bc64805dbf5544a43acb75a6d5bd7ec0,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 191
+      value: 269
       objectReference: {fileID: 0}
     - target: {fileID: 6338797720278950471, guid: bc64805dbf5544a43acb75a6d5bd7ec0,
         type: 3}
@@ -831,7 +836,7 @@ PrefabInstance:
     - target: {fileID: 6338797721473590855, guid: bc64805dbf5544a43acb75a6d5bd7ec0,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 5
+      value: 64
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bc64805dbf5544a43acb75a6d5bd7ec0, type: 3}

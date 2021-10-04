@@ -1,19 +1,19 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
+using System.Linq;
 
 public class BackGroundScroller : MonoBehaviour
 {
 
-    [SerializeField] float backGroundScrollSpeed = 10f;
+    [SerializeField] float backGroundScrollSpeed = 15f;
     [SerializeField] float planetSpawnMinTime;
-    [SerializeField] GameObject planet = null;
+    [SerializeField] GameObject[] planets = null;
     [SerializeField] GameObject spawnPointStart = null;
     [SerializeField] GameObject spawnPointEnd = null;
 
     Material myMaterial;
     Vector2 offset;
     bool planetSpawned = false;
+    int lastSelectedPlanetIndex = 100;
     GameObject planetInstantiated;
 
     // Start is called before the first frame update
@@ -27,23 +27,26 @@ public class BackGroundScroller : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        myMaterial.mainTextureOffset += offset * Time.deltaTime;
+        if (GameSession.GetGameStarted()) {
+            myMaterial.mainTextureOffset += offset * Time.deltaTime;
+        }
     }
 
     private void FixedUpdate()
     {
-        planetSpawnMinTime -= Time.deltaTime;
-        if (!planetSpawned && planetSpawnMinTime <= 0f)
+        if (GameSession.GetGameStarted())
         {
-            float xToSpawnOn = Random.Range(spawnPointStart.transform.position.x, spawnPointEnd.transform.position.x);
-            planetInstantiated = Instantiate(planet, new Vector3(xToSpawnOn, spawnPointStart.transform.position.y, spawnPointStart.transform.position.z), Quaternion.identity);
-            planetSpawnMinTime = Random.Range(20f, 40f);
-            planetSpawned = true;
-        }
-
-        if (planetSpawned)
-        {
-            planetInstantiated.transform.position = new Vector3(planetInstantiated.transform.position.x, planetInstantiated.transform.position.y - 0.01f, 0.3f);
+            planetSpawnMinTime -= Time.deltaTime;
+            if (!planetSpawned && planetSpawnMinTime <= 0f)
+            {
+                float xToSpawnOn = Random.Range(spawnPointStart.transform.position.x, spawnPointEnd.transform.position.x);
+                GameObject[] planetsToShow = planets.Where((source, index) => index != lastSelectedPlanetIndex).ToArray();
+                int indexToSpawnPlanet = Random.Range(0, planetsToShow.Length);
+                lastSelectedPlanetIndex = indexToSpawnPlanet;
+                planetInstantiated = Instantiate(planetsToShow[indexToSpawnPlanet], new Vector3(xToSpawnOn, spawnPointStart.transform.position.y, 1), Quaternion.identity);
+                planetSpawnMinTime = Random.Range(20f, 40f);
+                planetSpawned = true;
+            }
         }
     }
 }

@@ -9,19 +9,25 @@ public class Player : MonoBehaviour
 
     [Header("Player Movement")]
     [SerializeField] float moveSpeed = 14f;
-    [SerializeField] float padding = 1f;
+    [SerializeField] float padding = 0.2f;
 
     [Header("Projectile")]
     [SerializeField] int health = 100;
     [SerializeField] int maxHealth = 100;
     [SerializeField] float projectileSpeed = 100f;    
     [SerializeField] float durationOfExplosion = 1f;
+    [SerializeField] float durationOfLaserShot = 0.5f;
     [SerializeField] float shootCoolDown = .5f;
     [SerializeField] [Range(0, 1)] float sfxFireVolume = 1f;
     [SerializeField] [Range(0, 1)] float sfxDeathVolume = 1f;
     [SerializeField] [Range(0, 10)] float sfxShieldHitVolume = 3f;
+    [SerializeField] GameObject Ship = null;
+    [SerializeField] GameObject[] AvailableShips = null;
     [SerializeField] GameObject deathVFX = null;
+    [SerializeField] GameObject shootVFX = null;
     [SerializeField] GameObject laserPrefab = null;
+    [SerializeField] GameObject shield = null;
+    [SerializeField] GameObject laserShotFrom = null;
     [SerializeField] AudioClip deathSFX = null;
     [SerializeField] AudioClip shieldHitSFX = null;
     [SerializeField] AudioClip shootSFX = null;
@@ -47,6 +53,10 @@ public class Player : MonoBehaviour
     void Update()
     {
         Move();
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            ManualFire();
+        }
     }
 
     public void ManualFire()
@@ -57,6 +67,10 @@ public class Player : MonoBehaviour
             AudioSource.PlayClipAtPoint(shootSFX, Camera.main.transform.position, sfxFireVolume);
             GameObject laser = Instantiate(laserPrefab, transform.position, Quaternion.identity) as GameObject;
             laser.GetComponent<Rigidbody2D>().velocity = new Vector2(0, projectileSpeed);
+
+            GameObject laserShot = Instantiate(shootVFX, laserShotFrom.transform.position, transform.rotation);
+            Destroy(laserShot, durationOfLaserShot);
+
             StartCoroutine(fireCoolDown());
         }
     }
@@ -128,6 +142,10 @@ public class Player : MonoBehaviour
             Die();
         } else
         {
+            shield.SetActive(true);
+            SpriteRenderer shieldRenderer = shield.GetComponent<SpriteRenderer>();
+            shieldRenderer.color = new Color(shieldRenderer.color.r, shieldRenderer.color.g, shieldRenderer.color.b, 1);
+            StartCoroutine(FadeAlphaToZero(shieldRenderer, 0.5f));
             AudioSource.PlayClipAtPoint(shieldHitSFX, Camera.main.transform.position, sfxShieldHitVolume);
         }
     }
@@ -144,5 +162,20 @@ public class Player : MonoBehaviour
     public float getHelath()
     {
         return health;
+    }
+
+    IEnumerator FadeAlphaToZero(SpriteRenderer renderer, float duration)
+    {
+        Color startColor = renderer.color;
+        Color endColor = new Color(startColor.r, startColor.g, startColor.b, 0);
+        float time = 0;
+        while (time < duration)
+        {
+            time += Time.deltaTime;
+            renderer.color = Color.Lerp(startColor, endColor, time / duration);
+            yield return null;
+        }
+
+        shield.SetActive(false);
     }
 }
